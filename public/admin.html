@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Speed Typer</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px">
+        <h1 class="title">Admin Control Center</h1>
+        
+        <!-- Controls & Metrics -->
+        <div class="admin-grid" style="margin-bottom: 2rem;">
+            <div class="card glass stat-box">
+                <div class="stat-value" id="active-users-count">0</div>
+                <div class="stat-label">Active Connections</div>
+            </div>
+            <div class="card glass" style="display: flex; flex-direction: column; justify-content: center; gap: 1rem;">
+                <button class="success" id="btn-start" style="width: 100%">🚀 Broadcast Test Start</button>
+                <button class="danger" id="btn-stop" style="width: 100%">🛑 Force Stop Test</button>
+            </div>
+            <div class="card glass" style="display: flex; flex-direction: column; justify-content: center;">
+                <button id="btn-reset" style="background: var(--text-muted); margin-bottom: 1rem;">Reset Session State</button>
+                <button class="success" id="btn-export">📥 Export Leaderboard (.xlsx)</button>
+            </div>
+        </div>
+
+        <div class="admin-grid">
+            <!-- passage manager -->
+            <div class="card glass">
+                <h3>Passage Manager</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">Select active paragraph or add a new one.</p>
+                <form id="passage-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <textarea id="new-passage-text" rows="4" placeholder="Enter new typing text..." required style="padding: 1rem; border-radius: 8px; background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--glass-border);"></textarea>
+                    <button type="submit" style="padding: 0.5rem">Add Paragraph</button>
+                </form>
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Available Passages</h4>
+                    <div id="passages-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: 250px; overflow-y: auto;">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Monitoring -->
+            <div class="card glass">
+                <h3>Live Monitoring & Leaderboard</h3>
+                <div style="overflow-x: auto;">
+                    <table id="monitoring-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Reg. No.</th>
+                                <th>Status</th>
+                                <th>WPM</th>
+                                <th>Accuracy</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monitoring-body">
+                            <!-- Dynamically populated rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
